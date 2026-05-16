@@ -9,9 +9,53 @@ with open(os.path.join(MODEL_DIR, 'feature_columns.json')) as f:
 with open(os.path.join(MODEL_DIR, 'model_metadata.json')) as f:
     metadata = json.load(f)
 
-scaler    = joblib.load(os.path.join(MODEL_DIR, 'scaler.pkl'))
-if_model  = joblib.load(os.path.join(MODEL_DIR, 'isolation_forest.pkl'))
-lof_model = joblib.load(os.path.join(MODEL_DIR, 'lof_model.pkl'))
+from huggingface_hub import hf_hub_download
+import joblib
+import json
+
+def _load(self):
+
+    repo_id = "audirisper/AnomalyDetection"
+
+    # Download model files
+    if_path = hf_hub_download(
+        repo_id=repo_id,
+        filename="isolation_forest.pkl"
+    )
+
+    lof_path = hf_hub_download(
+        repo_id=repo_id,
+        filename="lof_model.pkl"
+    )
+
+    scaler_path = hf_hub_download(
+        repo_id=repo_id,
+        filename="scaler.pkl"
+    )
+
+    feature_cols_path = hf_hub_download(
+        repo_id=repo_id,
+        filename="feature_columns.json"
+    )
+
+    metadata_path = hf_hub_download(
+        repo_id=repo_id,
+        filename="model_metadata.json"
+    )
+
+    # Load models
+    self.if_model = joblib.load(if_path)
+    self.lof_model = joblib.load(lof_path)
+    self.scaler = joblib.load(scaler_path)
+
+    # Load JSON files
+    with open(feature_cols_path) as f:
+        self.features = json.load(f)
+
+    with open(metadata_path) as f:
+        self.metadata = json.load(f)
+
+    print("Models loaded successfully from Hugging Face")
 
 ensemble_threshold = metadata['ensemble_threshold']
 IF_SCORE_MIN,  IF_SCORE_MAX  = 0.30, 0.70
