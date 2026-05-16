@@ -1,4 +1,4 @@
-from huggingface_hub import upload_file
+from huggingface_hgitub import upload_file
 
 repo_id = "audirisper/AnomalyDetection"
 
