@@ -1,0 +1,21 @@
+[
+  "weight_kg",
+  "age_months",
+  "age_group_num",
+  "dose_mg",
+  "freq_per_day",
+  "daily_dose_mg",
+  "dose_per_kg",
+  "daily_dose_per_kg",
+  "deviation_from_guideline",
+  "dose_to_max_ratio",
+  "dose_zscore",
+  "freq_ratio",
+  "drug_class_num",
+  "is_above_max_dose",
+  "is_below_min_therapeutic",
+  "is_freq_above_guideline",
+  "is_age_contraindicated",
+  "is_tablet_split",
+  "facility_type_num"
+]

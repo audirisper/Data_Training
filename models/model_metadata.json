@@ -1,0 +1,42 @@
+{
+  "model_type": "Hybrid: IsolationForest + LOF + RuleEngine",
+  "trained_at": "2026-05-13T08:08:17.104432",
+  "n_features": 19,
+  "features": [
+    "weight_kg",
+    "age_months",
+    "age_group_num",
+    "dose_mg",
+    "freq_per_day",
+    "daily_dose_mg",
+    "dose_per_kg",
+    "daily_dose_per_kg",
+    "deviation_from_guideline",
+    "dose_to_max_ratio",
+    "dose_zscore",
+    "freq_ratio",
+    "drug_class_num",
+    "is_above_max_dose",
+    "is_below_min_therapeutic",
+    "is_freq_above_guideline",
+    "is_age_contraindicated",
+    "is_tablet_split",
+    "facility_type_num"
+  ],
+  "ensemble_threshold": 0.2252,
+  "alert_thresholds": {
+    "red_threshold": 0.2038,
+    "yellow_threshold": 0.1281
+  },
+  "performance": {
+    "precision": 0.8019,
+    "recall": 0.8965,
+    "f1": 0.8466,
+    "roc_auc": 0.9727,
+    "true_positives": 1793,
+    "false_positives": 443,
+    "false_negatives": 207,
+    "true_negatives": 7557,
+    "alert_fatigue_rate": 0.0554
+  }
+}
