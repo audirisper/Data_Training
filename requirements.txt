@@ -1,0 +1,5 @@
+Flask
+waitress
+joblib
+numpy
+scikit-learn
