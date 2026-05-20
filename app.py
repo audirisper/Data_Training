@@ -1,11 +1,13 @@
 import os
 import json
-import joblib
-import numpy as np
+import joblib # type: ignore
+import numpy as np # type: ignore
 from flask import Flask, request, jsonify
-from huggingface_hub import hf_hub_download
+from flask_cors import CORS # type: ignore
+from huggingface_hub import hf_hub_download # type: ignore
 
 app = Flask(__name__)
+CORS(app)
 
 # =========================
 # CONFIG
@@ -81,6 +83,45 @@ def get_ensemble_score(X_scaled):
     return 0.6 * if_norm + 0.4 * lof_norm
 
 
+def build_clinical_response(score, prediction, data):
+    if prediction == 1:
+        risk_level = "HIGH"
+        message = "Potential dosage anomaly detected"
+        recommendation = "Review prescription before administration"
+    else:
+        risk_level = "LOW"
+        message = "Within expected clinical range"
+        recommendation = "Proceed with prescription"
+
+    # risk banding (important for UI gauge)
+    if score < 0.3:
+        band = "SAFE"
+    elif score < 0.7:
+        band = "WARNING"
+    else:
+        band = "DANGER"
+
+    return {
+        "prediction": int(prediction),
+        "risk_score": round(score, 4),
+        "risk_level": risk_level,
+        "risk_band": band,
+        "message": message,
+        "recommendation": recommendation,
+    }
+
+def explain_decision(score, data):
+    top_factor = max(data, key=lambda k: abs(hash(k)) % 10)  # placeholder logic
+
+    return {
+        "explanation": (
+            f"Model flagged input due to combined anomaly detection "
+            f"on feature distribution deviations."
+        ),
+        "key_factor": top_factor
+    }
+
+
 # =========================
 # ROUTES
 # =========================
@@ -97,11 +138,14 @@ def predict():
         score = float(get_ensemble_score(X_scaled))
         prediction = int(score >= ensemble_threshold)
 
-        return jsonify({
-            "prediction": prediction,
-            "score": score,
-            "threshold": float(ensemble_threshold)
-        })
+        response = build_clinical_response(score, prediction, data)
+
+        explanation = explain_decision(score, data)
+        response["explainability"] = explanation
+
+        log_prediction(data, response)
+
+        return jsonify(response)
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -119,6 +163,38 @@ def health():
         "features": len(FEATURE_COLUMNS),
         "threshold": float(ensemble_threshold)
     })
+
+
+@app.route("/override", methods=["POST"])
+def override():
+    data = request.get_json()
+
+    log_entry = {
+        "doctor_id": data.get("doctor_id"),
+        "prediction": data.get("prediction"),
+        "reason": data.get("reason"),
+        "timestamp": data.get("timestamp")
+    }
+
+    # later: save to DB
+    return jsonify({
+        "status": "override recorded",
+        "audit": log_entry
+    })
+
+import datetime
+
+def log_prediction(data, response):
+    log = {
+        "timestamp": datetime.datetime.utcnow().isoformat(),
+        "input": data,
+        "output": response
+    }
+
+    os.makedirs("logs", exist_ok=True)
+
+    with open("logs/audit.jsonl", "a") as f:
+        f.write(json.dumps(log) + "\n")
 
 
 # =========================

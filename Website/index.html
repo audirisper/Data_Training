@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MediScript Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css"/>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- FAR LEFT ICON BAR -->
+    <nav class="icon-bar" aria-label="Main navigation">
+
+        <button type="button" class="icon icon--logo" id="btn-home-logo" title="Dashboard" aria-label="Dashboard">
+            <i class="fas fa-staff-snake top-logo" aria-hidden="true"></i>
+        </button>
+
+        <div class="icon-group">
+
+            <button type="button" class="icon active" data-view="dashboard" title="Patients" aria-label="Patients">
+                <i class="fas fa-address-card" aria-hidden="true"></i>
+            </button>
+
+            <button type="button" class="icon" data-view="calendar" title="Schedule" aria-label="Schedule">
+                <i class="fas fa-calendar" aria-hidden="true"></i>
+            </button>
+
+            <button type="button" class="icon" data-view="messages" title="Messages" aria-label="Messages">
+                <i class="fas fa-comment-medical" aria-hidden="true"></i>
+            </button>
+
+            <button type="button" class="icon" data-view="notifications" title="Notifications" aria-label="Notifications">
+                <i class="fas fa-bell" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+        <button type="button" class="icon bottom-icon" data-view="settings" title="Settings" aria-label="Settings">
+            <i class="fas fa-cog" aria-hidden="true"></i>
+        </button>
+
+    </nav>
+
+    <!-- PATIENT SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+            <div class="sidebar-minirow">
+                <div class="sidebar-date" id="sidebar-date">May 20</div>
+                <button type="button" class="sidebar-pill" id="btn-groups" aria-haspopup="listbox" aria-expanded="false">
+                    Groups <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="sidebar-title-row">
+                <h2 class="sidebar-title">Patients</h2>
+                <button type="button" class="icon-btn" id="btn-add-patient" title="Add patient" aria-label="Add patient">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="group-menu" id="group-menu" role="listbox" aria-label="Patient groups" hidden></div>
+        </div>
+
+        <div class="search">
+            <label class="visually-hidden" for="patient-search">Search patients</label>
+            <div class="search-inline search-inline--sidebar">
+                <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                <input id="patient-search" type="search" placeholder="Search patients..." autocomplete="off">
+            </div>
+        </div>
+
+        <div class="patient-list" role="list">
+            <!-- Populated / wired by script -->
+        </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- Dashboard: patient record -->
+        <section class="app-view app-view--active" id="view-dashboard" data-view-name="dashboard" aria-label="Patient dashboard" aria-hidden="false">
+
+        <!-- HEADER -->
+        <div class="topbar">
+
+            <div class="profile">
+
+                <img id="profile-img" src="https://i.pravatar.cc/200?img=12" alt="">
+
+                <div>
+                    <h1 id="profile-name">Brendon Rogers</h1>
+                    <p id="profile-subtitle">Coronary atherosclerosis — Latest diagnosis</p>
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <button type="button" class="circle-btn" id="btn-video" title="Start video visit">
+                    <i class="fas fa-video" aria-hidden="true"></i>
+                    <span class="visually-hidden">Start video visit</span>
+                </button>
+
+                <button type="button" class="primary-btn" id="btn-add-new">
+                    + Add New
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- TABS -->
+        <div class="tabs" role="tablist" aria-label="Patient record sections">
+
+            <button type="button" class="tab active" role="tab" aria-selected="true" data-tab="patient-info" id="tab-patient-info">Patient Info</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="visits" id="tab-visits">Visits</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="labs" id="tab-labs">Labs</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-tab="prescriptions" id="tab-prescriptions">Prescriptions</button>
+
+        </div>
+
+        <div class="tab-panels">
+
+            <div class="tab-panel tab-panel--active" role="tabpanel" data-tab="patient-info" aria-labelledby="tab-patient-info">
+
+                <!-- DIAGNOSES -->
+                <div class="section">
+
+                    <div class="section-header">
+                        <h2>Latest Diagnoses</h2>
+                        <button type="button" class="link-btn" id="btn-see-all-diagnoses">See All</button>
+                    </div>
+
+                    <div class="diagnosis-grid" id="diagnosis-grid">
+                    </div>
+
+                </div>
+
+                <!-- INFORMATION -->
+                <div class="section">
+
+                    <div class="section-header">
+                        <h2>General Information</h2>
+                    </div>
+
+                    <div class="info-table" id="info-table">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-tab="visits" aria-labelledby="tab-visits">
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Visit history</h2>
+                    </div>
+                    <ul class="simple-list" id="visits-list"></ul>
+                </div>
+
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-tab="labs" aria-labelledby="tab-labs">
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Laboratory results</h2>
+                    </div>
+                    <ul class="simple-list" id="labs-list"></ul>
+                </div>
+
+            </div>
+
+            <div class="tab-panel" role="tabpanel" data-tab="prescriptions" aria-labelledby="tab-prescriptions">
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Active prescriptions</h2>
+                    </div>
+                    <ul class="simple-list" id="prescriptions-list"></ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Prescribe medication (demo)</h2>
+                        <button type="button" class="link-btn" id="btn-fill-guideline">Fill guideline dose</button>
+                    </div>
+
+                    <form class="rx-form" id="rx-form">
+                        <div class="rx-grid">
+                            <label class="field">
+                                <span>Drug</span>
+                                <select id="rx-drug" required></select>
+                            </label>
+
+                            <label class="field">
+                                <span>Weight (kg)</span>
+                                <input type="number" id="rx-weight" min="0.5" step="0.1" required>
+                            </label>
+
+                            <label class="field">
+                                <span>Age (months)</span>
+                                <input type="number" id="rx-age-months" min="0" step="1" required>
+                            </label>
+
+                            <label class="field">
+                                <span>Dose per administration (mg)</span>
+                                <input type="number" id="rx-dose-mg" min="0" step="0.1" required>
+                            </label>
+
+                            <label class="field">
+                                <span>Frequency (times/day)</span>
+                                <input type="number" id="rx-freq" min="1" step="1" required>
+                            </label>
+
+                            <label class="field">
+                                <span>Formulation</span>
+                                <select id="rx-formulation">
+                                    <option value="syrup">Syrup</option>
+                                    <option value="dispersible_tablet">Dispersible tablet</option>
+                                    <option value="suspension">Suspension</option>
+                                    <option value="injection">Injection</option>
+                                    <option value="granule_sachet">Granule sachet</option>
+                                    <option value="adult_tablet_split">Adult tablet split (risk)</option>
+                                </select>
+                            </label>
+
+                            <label class="field">
+                                <span>Facility</span>
+                                <select id="rx-facility">
+                                    <option value="paediatric_ward">Paediatric ward</option>
+                                    <option value="health_centre">Health centre</option>
+                                    <option value="outpatient_clinic">Outpatient clinic</option>
+                                    <option value="community_health">Community health</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="rx-actions">
+                            <button type="submit" class="btn-primary">Evaluate prescription</button>
+                            <button type="button" class="btn-secondary" id="btn-add-to-patient">Add to patient list</button>
+                        </div>
+                    </form>
+
+                    <div class="rx-result" id="rx-result" hidden>
+                        <div class="rx-badge" id="rx-badge">OK</div>
+                        <div class="rx-result__body">
+                            <div class="rx-result__title" id="rx-result-title">Within guideline range</div>
+                            <div class="rx-result__msg" id="rx-result-msg">Proceed with prescription.</div>
+                            <div class="rx-metrics" id="rx-metrics"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        </section>
+
+        <!-- Other app views (icon bar) -->
+        <section class="app-view" id="view-calendar" data-view-name="calendar" aria-label="Schedule" aria-hidden="true">
+            <div class="view-shell">
+                <div class="view-header">
+                    <div>
+                        <h2>Calendar</h2>
+                        <p class="muted">Your day at a glance. Click an appointment to view details.</p>
+                    </div>
+                    <div class="view-actions">
+                        <button type="button" class="btn-secondary" id="btn-cal-today">Today</button>
+                        <button type="button" class="btn-secondary" id="btn-cal-new">New appointment</button>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="panel">
+                        <div class="panel__header">
+                            <button type="button" class="icon-btn" id="btn-cal-prev" aria-label="Previous month"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                            <div class="panel__title" id="cal-month-label">May 2026</div>
+                            <button type="button" class="icon-btn" id="btn-cal-next" aria-label="Next month"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="cal-grid" id="cal-grid" aria-label="Calendar grid"></div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel__header">
+                            <div class="panel__title" id="agenda-title">Agenda</div>
+                            <div class="chip-row">
+                                <button type="button" class="chip chip--active" data-cal-filter="all">All</button>
+                                <button type="button" class="chip" data-cal-filter="telehealth">Telehealth</button>
+                                <button type="button" class="chip" data-cal-filter="in-person">In person</button>
+                            </div>
+                        </div>
+                        <div class="list" id="agenda-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-view" id="view-messages" data-view-name="messages" aria-label="Messages" aria-hidden="true">
+            <div class="view-shell">
+                <div class="view-header">
+                    <div>
+                        <h2>Messages</h2>
+                        <p class="muted">Secure inbox. Select a conversation to view the thread.</p>
+                    </div>
+                    <div class="view-actions">
+                        <div class="search-inline">
+                            <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+                            <input type="search" id="msg-search" placeholder="Search messages…">
+                        </div>
+                        <button type="button" class="btn-secondary" id="btn-msg-new">New message</button>
+                    </div>
+                </div>
+
+                <div class="three-col">
+                    <div class="panel panel--scroll">
+                        <div class="panel__header">
+                            <div class="panel__title">Inbox</div>
+                            <span class="badge" id="msg-unread-count">0</span>
+                        </div>
+                        <div class="list" id="msg-inbox"></div>
+                    </div>
+
+                    <div class="panel panel--scroll panel--wide">
+                        <div class="panel__header">
+                            <div class="panel__title" id="msg-thread-title">Select a conversation</div>
+                            <div class="chip-row">
+                                <button type="button" class="chip" id="btn-msg-mark-read">Mark read</button>
+                                <button type="button" class="chip" id="btn-msg-archive">Archive</button>
+                            </div>
+                        </div>
+                        <div class="thread" id="msg-thread"></div>
+                        <div class="composer">
+                            <input type="text" id="msg-compose" placeholder="Write a reply…">
+                            <button type="button" class="btn-primary" id="btn-msg-send">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-view" id="view-notifications" data-view-name="notifications" aria-label="Notifications" aria-hidden="true">
+            <div class="view-shell">
+                <div class="view-header">
+                    <div>
+                        <h2>Notifications</h2>
+                        <p class="muted">Alerts that matter. Keep the inbox clean by clearing resolved items.</p>
+                    </div>
+                    <div class="view-actions">
+                        <button type="button" class="btn-secondary" id="btn-notif-clear">Clear all</button>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="panel panel--scroll">
+                        <div class="panel__header">
+                            <div class="panel__title">Today</div>
+                        </div>
+                        <div class="list" id="notif-today"></div>
+                    </div>
+
+                    <div class="panel panel--scroll">
+                        <div class="panel__header">
+                            <div class="panel__title">Earlier</div>
+                        </div>
+                        <div class="list" id="notif-earlier"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="app-view" id="view-settings" data-view-name="settings" aria-label="Settings" aria-hidden="true">
+            <div class="view-shell">
+                <div class="view-header">
+                    <div>
+                        <h2>Settings</h2>
+                        <p class="muted">Workspace preferences and API connectivity.</p>
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="panel">
+                        <div class="panel__header">
+                            <div class="panel__title">Appearance & behavior</div>
+                        </div>
+                        <div class="settings-options">
+                            <label class="toggle">
+                                <input type="checkbox" id="setting-compact" checked>
+                                <span>Compact patient list</span>
+                            </label>
+                            <label class="toggle">
+                                <input type="checkbox" id="setting-sounds">
+                                <span>Notification sounds</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel__header">
+                            <div class="panel__title">Model scoring API</div>
+                        </div>
+
+                        <div class="settings-options">
+                            <label class="toggle">
+                                <input type="checkbox" id="setting-use-api">
+                                <span>Use API for prescription evaluation</span>
+                            </label>
+
+                            <label class="field">
+                                <span>API base URL</span>
+                                <input type="url" id="setting-api-base" placeholder="https://your-service.onrender.com">
+                            </label>
+
+                            <div class="row">
+                                <button type="button" class="btn-secondary" id="btn-api-test">Test connection</button>
+                                <div class="status" id="api-status">Not connected</div>
+                            </div>
+
+                            <div class="hint">
+                                When enabled, the site will send the same JSON your Flask `/predict` expects and map its
+                                `risk_band` to OK / Needs work / Not OK.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- Modal backdrop -->
+<div class="modal-backdrop" id="modal-backdrop" hidden></div>
+
+<!-- Video modal -->
+<div class="modal" id="modal-video" role="dialog" aria-modal="true" aria-labelledby="video-modal-title" hidden>
+    <div class="modal__card">
+        <h2 id="video-modal-title">Video visit</h2>
+        <p class="muted">Starting a secure video session with <strong id="video-patient-name"></strong>…</p>
+        <div class="modal__actions">
+            <button type="button" class="btn-secondary" data-close-modal>Cancel</button>
+            <button type="button" class="btn-primary" id="btn-join-call">Join now</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add new modal -->
+<div class="modal" id="modal-add" role="dialog" aria-modal="true" aria-labelledby="add-modal-title" hidden>
+    <div class="modal__card">
+        <h2 id="add-modal-title">Add prescription note</h2>
+        <p class="muted">Adds a draft line to the current patient’s prescription list (demo).</p>
+        <label class="field">
+            <span>Medication</span>
+            <input type="text" id="add-med-name" placeholder="e.g. Atorvastatin 20 mg">
+        </label>
+        <label class="field">
+            <span>Instructions</span>
+            <input type="text" id="add-med-instructions" placeholder="e.g. Once daily with food">
+        </label>
+        <div class="modal__actions">
+            <button type="button" class="btn-secondary" data-close-modal>Cancel</button>
+            <button type="button" class="btn-primary" id="btn-save-prescription">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- Diagnoses modal -->
+<div class="modal modal--wide" id="modal-diagnoses" role="dialog" aria-modal="true" aria-labelledby="dx-modal-title" hidden>
+    <div class="modal__card">
+        <h2 id="dx-modal-title">All diagnoses</h2>
+        <ul class="simple-list" id="diagnoses-all-list"></ul>
+        <div class="modal__actions">
+            <button type="button" class="btn-primary" data-close-modal>Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
