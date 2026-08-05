@@ -1,0 +1,28 @@
+{"timestamp": "2026-06-08T16:56:13.072839", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-08T16:56:30.496630", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-08T17:01:21.052457", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T06:23:17.036653", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T06:23:36.404855", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T06:55:28.278602", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T06:59:35.157888", "event": "patient_create", "patient_id": "risper-otieno-mq6aht6x", "name": "Risper Otieno"}
+{"timestamp": "2026-06-09T07:00:41.977881", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T07:01:30.850879", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T07:51:43.042136", "event": "patient_update", "patient_id": "risper-otieno-mq6aht6x", "name": "Risper Otieno"}
+{"timestamp": "2026-06-09T07:54:17.981110", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T08:04:42.277009", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T08:08:41.182542", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T10:44:47.650015", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T10:47:38.048938", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T10:53:02.063254", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T10:59:21.923791", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T11:02:58.840204", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T11:19:20.263793", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T11:21:15.435173", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T12:03:01.053333", "event": "patient_delete", "patient_id": "risper-otieno-mq6aht6x", "name": "Risper Otieno"}
+{"timestamp": "2026-06-09T12:03:30.860438", "event": "patient_create", "patient_id": "jack-mq6lco07", "name": "Jack"}
+{"timestamp": "2026-06-09T12:05:42.666602", "event": "patient_create", "patient_id": "beatrice-jones-mq6lfhp3", "name": "Beatrice Jones"}
+{"timestamp": "2026-06-09T12:28:43.293012", "event": "patient_delete", "patient_id": "beatrice-jones-mq6lfhp3", "name": "Beatrice Jones"}
+{"timestamp": "2026-06-09T13:05:39.349175", "event": "patient_update", "patient_id": "jack-mq6lco07", "name": "Jack"}
+{"timestamp": "2026-06-09T18:14:59.658554", "event": "doctor_login", "doctor_id": "doc-chen", "email": "doctor@mediscript.com"}
+{"timestamp": "2026-06-09T18:15:44.762206", "event": "patient_update", "patient_id": "jack-mq6lco07", "name": "Jack"}
+{"timestamp": "2026-06-09T18:15:59.871577", "event": "patient_update", "patient_id": "jack-mq6lco07", "name": "Jack"}

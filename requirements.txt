@@ -2,7 +2,9 @@ Flask
 waitress
 joblib
 numpy
+pandas
 scikit-learn
 flask-cors
+streamlit
 gunicorn==22.0.0
 huggingface_hub==0.26.0

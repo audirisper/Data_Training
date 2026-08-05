@@ -1,0 +1,234 @@
+@import "tailwindcss";
+html,
+body,
+#root {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-feature-settings: "ss01" 1;
+}
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --radius-button: 20px;
+  --radius-card: 28px;
+  --radius-dashboard: 32px;
+  --radius-image: 28px;
+
+  /* Brand palette — single source of truth for the marketing site + dashboard. */
+  --color-primary: #6F7886;
+  --color-primary-hover: #5D6675;
+  --color-secondary: #7A8A5A;
+  --color-secondary-hover: #6B794F;
+  --color-page: #FAF9F7;
+  --color-card: #FFFFFF;
+  --color-heading: #2C3138;
+  --color-body: #666D75;
+  --color-line: #E7E7E2;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+button,
+input,
+textarea,
+select,
+optgroup,
+option,
+label,
+summary {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Premium surface system: floating cards, glass panels, organic blobs    */
+/* ---------------------------------------------------------------------- */
+
+.card-float {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 28px;
+  box-shadow: 0 1px 2px rgba(44, 49, 56, 0.04), 0 18px 40px -16px rgba(44, 49, 56, 0.10);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1), border-color 320ms ease;
+}
+
+.card-float:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 8px rgba(44, 49, 56, 0.05), 0 30px 60px -20px rgba(44, 49, 56, 0.18);
+  border-color: color-mix(in srgb, var(--color-secondary) 35%, var(--color-line));
+}
+
+.glass-panel {
+  background: color-mix(in srgb, var(--color-card) 55%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid color-mix(in srgb, white 40%, var(--color-line));
+  box-shadow: 0 8px 32px -12px rgba(44, 49, 56, 0.12);
+}
+
+.glass-panel-dark {
+  background: color-mix(in srgb, var(--color-heading) 55%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.gradient-mesh-primary {
+  background:
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--color-secondary) 30%, transparent) 0%, transparent 45%),
+    radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--color-primary) 25%, transparent) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--color-secondary) 18%, transparent) 0%, transparent 55%);
+}
+
+.blob-shape {
+  border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+}
+
+.text-gradient-brand {
+  background: linear-gradient(120deg, var(--color-primary), var(--color-secondary) 60%, var(--color-primary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-width: 1px;
+}
+
+/* Skeleton / shimmer for progressive loading states */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-line);
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: shimmerSweep 1.6s infinite;
+}
+
+@keyframes shimmerSweep {
+  100% { transform: translateX(100%); }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Premium micro-animations for overlay cards + decorative motion         */
+/* ---------------------------------------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(122, 138, 90, 0); }
+  50% { box-shadow: 0 0 28px rgba(122, 138, 90, 0.2); }
+}
+
+@keyframes sectionFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blobMorph {
+  0%, 100% { border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%; transform: translate3d(0, 0, 0) rotate(0deg); }
+  33% { border-radius: 58% 42% 35% 65% / 55% 65% 35% 45%; transform: translate3d(2%, -3%, 0) rotate(4deg); }
+  66% { border-radius: 35% 65% 55% 45% / 40% 45% 55% 60%; transform: translate3d(-2%, 2%, 0) rotate(-3deg); }
+}
+
+@keyframes driftSlow {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3%, -4%, 0) scale(1.05); }
+}
+
+@keyframes gradientPan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 200ms ease-out forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 300ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-hero-float {
+  animation: floatY 7s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3.2s ease-in-out infinite;
+}
+
+.animate-section-fade-up {
+  opacity: 0;
+  animation: sectionFadeUp 0.9s ease-out forwards;
+}
+
+.animate-blob {
+  animation: blobMorph 16s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: driftSlow 9s ease-in-out infinite;
+}
+
+.animate-gradient-pan {
+  background-size: 200% auto;
+  animation: gradientPan 6s ease-in-out infinite;
+}
+
+@keyframes rippleExpand {
+  to {
+    width: 480px;
+    height: 480px;
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: rippleExpand 0.65s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-float,
+  .animate-glow-pulse,
+  .animate-ripple,
+  .animate-blob,
+  .animate-drift,
+  .animate-gradient-pan,
+  .shimmer::after {
+    animation: none !important;
+  }
+}
